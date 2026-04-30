@@ -1,0 +1,28 @@
+YAML
+‎name: Verify Human Identity
+‎
+‎on:
+‎  workflow_dispatch:
+‎
+‎jobs:
+‎  verify:
+‎    runs-on: ubuntu-latest
+‎    steps:
+‎      - name: Checkout repo
+‎        uses: actions/checkout@v3
+‎
+‎      - name: Setup Node.js
+‎        uses: actions/setup-node@v3
+‎        with:
+‎          node-version: "20"
+‎
+‎      - name: Install dependencies
+‎        run: |
+‎          cd scripts
+‎          npm install
+‎
+‎      - name: Restore Identity from Secret
+‎        run: node scripts/createNewEthereumIdentity.js --key ${{ secrets.MY_PRIVATE_KEY }}
+   - name: Link Human to Agent
+‎        run: |
+‎          node scripts/manualLinkHumanToAgent.js --challenge '{"name":"Olympusthor","description":"Migrasi dari Termux"}'
